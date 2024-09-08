@@ -7,4 +7,4 @@ value_entered = input("Please enter a floating point between 1 and 100: ")
 
 value_entered = float(value_entered)
 value_squared = value_entered**2
-print("The value squared= ",value_squared,2))
+print("The value squared= ",value_squared,2)
