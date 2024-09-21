@@ -6,3 +6,11 @@ respondentIDs = (1012,1035, 1021, 1053)
 
 responseValues.append(respondentIDs)
 print(responseValues)
+
+responseValues = [5, 7, 3, 8]
+respondentIDs = (1012, 1035, 1021, 1053)
+
+# Create a dictionary using zip()
+responseDict = dict(zip(respondentIDs, responseValues))
+
+print(responseDict)
