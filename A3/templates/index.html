@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        {% if username %}
+        <h1>Welcome back, {{ username }}!</h1>
+        <a href="/game" class="btn">Start Quiz</a>
+        <a href="/results" class="btn">View Results</a>
+        {% else %}
+        <h1>Welcome to the Quiz Game!</h1>
+        <form action="/set_username" method="POST">
+            <input type="text" name="username" placeholder="Enter your name" required style="font-size: 1.6rem; padding: 1rem; width: 80%; margin: 1rem 0;">
+            <button type="submit" class="btn">Submit</button>
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>

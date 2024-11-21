@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome Back</title>
+</head>
+<body>
+    <h1>Welcome back, {{ username }}!</h1>
+    <h2>Your Quiz History:</h2>
+    <ul>
+        {% for score in history %}
+            <li>Score: {{ score }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('game') }}">Play Again</a>
+</body>
+</html>

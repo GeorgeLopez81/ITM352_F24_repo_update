@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/app.css">
+    <title>Quiz Results</title>
+</head>
+<body>
+    <div id="results-container" class="container">
+        <h1>Quiz Completed!</h1>
+        <p>Your Score: {{ score }} / {{ total_questions }}</p>
+        
+        <h2>Score History</h2>
+        {% if history %}
+        <ul>
+            {% for past_score in history %}
+            <li>Score: {{ past_score }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No previous scores available.</p>
+        {% endif %}
+
+        <a href="/" class="btn">Return to Home</a>
+        <a href="/game" class="btn">Play Again</a>
+    </div>
+</body>
+</html>
