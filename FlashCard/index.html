@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard App</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .flashcard { border: 1px solid #ddd; padding: 20px; margin: 10px auto; width: 300px; }
+    </style>
+</head>
+<body>
+    <h1>Flashcard Generator</h1>
+    <form id="inputForm" enctype="multipart/form-data">
+        <label for="subject">Subject:</label>
+        <textarea id="subject" placeholder="Enter subject text here"></textarea>
+        <label for="file">Upload File:</label>
+        <input type="file" id="file" />
+        <button type="submit">Generate Flashcards</button>
+    </form>
+
+    <!-- Flashcards display area -->
+    <div id="flashcards"></div>
+    <div>
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
+    </div>
+
+    <!-- Link the script.js file -->
+    <script src="script.js"></script>
+</body>
+</html>
