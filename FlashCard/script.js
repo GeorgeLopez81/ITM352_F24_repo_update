@@ -1,6 +1,9 @@
-// Select the form and flashcard display area
+// Select the form, flashcards container, and buttons
 const form = document.getElementById("inputForm");
 const flashcardsDiv = document.getElementById("flashcards");
+const prevButton = document.getElementById("prev");
+const nextButton = document.getElementById("next");
+
 let flashcards = []; // Store all generated flashcards
 let currentIndex = 0; // Track the current flashcard index
 
@@ -42,16 +45,20 @@ form.addEventListener("submit", async (e) => {
 // Function to display a flashcard
 function displayFlashcard(index) {
     flashcardsDiv.innerHTML = ""; // Clear previous content
-    const card = document.createElement("div");
-    card.className = "flashcard";
-    card.innerHTML = `
-        <div class="flashcard-inner">
-            <div class="flashcard-front">${flashcards[index].question}</div>
-            <div class="flashcard-back">${flashcards[index].answer}</div>
-        </div>
-    `;
-    flashcardsDiv.appendChild(card);
-    addFlipEvent(card);
+    if (flashcards[index]) {
+        const card = document.createElement("div");
+        card.className = "flashcard";
+        card.innerHTML = `
+            <div class="flashcard-inner">
+                <div class="flashcard-front">${flashcards[index].question}</div>
+                <div class="flashcard-back">${flashcards[index].answer}</div>
+            </div>
+        `;
+        flashcardsDiv.appendChild(card);
+        addFlipEvent(card);
+    } else {
+        flashcardsDiv.textContent = "No flashcards to display.";
+    }
 }
 
 // Add flip event to the flashcard
@@ -62,15 +69,16 @@ function addFlipEvent(card) {
 }
 
 // Navigate between flashcards
-document.getElementById("next").addEventListener("click", () => {
-    if (currentIndex < flashcards.length - 1) {
-        currentIndex++;
+prevButton.addEventListener("click", () => {
+    if (currentIndex > 0) {
+        currentIndex--;
         displayFlashcard(currentIndex);
     }
 });
-document.getElementById("prev").addEventListener("click", () => {
-    if (currentIndex > 0) {
-        currentIndex--;
+
+nextButton.addEventListener("click", () => {
+    if (currentIndex < flashcards.length - 1) {
+        currentIndex++;
         displayFlashcard(currentIndex);
     }
 });
