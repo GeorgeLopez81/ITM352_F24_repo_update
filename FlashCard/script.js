@@ -82,3 +82,13 @@ nextButton.addEventListener("click", () => {
         displayFlashcard(currentIndex);
     }
 });
+document.getElementById("submitQuiz").addEventListener("click", () => {
+    let score = 0;
+    const answers = document.querySelectorAll(".quiz-answer");
+    answers.forEach((answer) => {
+        if (answer.dataset.correct === "true" && answer.checked) {
+            score++;
+        }
+    });
+    alert(`You scored ${score} out of ${answers.length}!`);
+});
