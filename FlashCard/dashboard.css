@@ -1,0 +1,136 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.flashcard-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.top-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.top-section label,
+.top-section input,
+.top-section button {
+    margin: 5px;
+}
+
+input[type="text"],
+input[type="file"] {
+    padding: 5px;
+    font-size: 14px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.green-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+.card-section {
+    margin: 20px 0;
+}
+
+.modes {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.mode-button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.flashcard {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.flashcard ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.flashcard ul li {
+    margin: 5px 0;
+}
+
+.card-controls {
+    display: flex;
+    justify-content: center;
+}
+
+.card-controls button {
+    margin: 0 10px;
+}
+
+.actions {
+    margin-top: 15px;
+}
+
+.action-button {
+    margin: 10px;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+}
+
+.blue-button {
+    background-color: #007bff;
+}
+
+.orange-button {
+    background-color: #ff9800;
+}
+
+.purple-button {
+    background-color: #9c27b0;
+}
+
+.manual-insert {
+    margin-top: 15px;
+}
+
+.manual-button {
+    padding: 10px 20px;
+    background-color: #795548;
+    color: white;
+    border-radius: 5px;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Your In   !</h1>
+
+        <div class="flashcard-container">
+            <div class="top-section">
+                <label for="subject-input">Subject:</label>
+                <input type="text" id="subject-input" placeholder="Enter subject text here">
+                <label for="file-upload">Upload File:</label>
+                <input type="file" id="file-upload">
+                <button id="generate-button" class="green-button">Generate Flashcards</button>
+            </div>
+
+            <div class="card-section">
+                <div class="modes">
+                    <button class="mode-button">Study Mode</button>
+                    <button class="mode-button">Test Mode (Timed)</button>
+                </div>
+
+                <div class="flashcard">
+                    <p id="flashcard-question">Did my dog eat my homework?</p>
+                    <ul>
+                        <li>A) Yes</li>
+                        <li>B) No</li>
+                        <li>C) Your cat ate it</li>
+                        <li>D) Your mom ate it</li>
+                    </ul>
+                </div>
+
+                <div class="card-controls">
+                    <button id="previous-button">Previous</button>
+                    <button id="next-button">Next</button>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="action-button blue-button">Shuffle the Deck</button>
+                <button class="action-button orange-button">Progress Report</button>
+                <button class="action-button purple-button">Ready to Take Quiz</button>
+            </div>
+
+            <div class="manual-insert">
+                <button class="manual-button">Manually Insert Question and Answer into Deck</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
