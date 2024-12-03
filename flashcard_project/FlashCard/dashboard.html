@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Your In!</h1>
+
+        <div class="flashcard-container">
+            <div class="top-section">
+                <label for="subject-input">Subject:</label>
+                <input type="text" id="subject-input" placeholder="Enter subject text here">
+                <label for="file-upload">Upload File:</label>
+                <input type="file" id="file-upload">
+                <button id="generate-button" class="green-button">Generate Flashcards</button>
+            </div>
+
+            <div class="card-section">
+                <div class="modes">
+                    <button id="edit-card-button" class="mode-button">Edit Card</button>
+                    <button class="mode-button">Test Mode (Timed)</button>
+                </div>
+
+                <div class="flashcard">
+                    <!-- Display only the question by default -->
+                    <p id="flashcard-content">Question appears here</p>
+                </div>
+
+                <div class="card-controls">
+                    <button id="previous-button">Previous</button>
+                    <button id="flip-button">Flip</button> <!-- New Flip button -->
+                    <button id="next-button">Next</button>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="action-button blue-button">Shuffle the Deck</button>
+                <button class="action-button orange-button">Progress Report</button>
+                <button class="action-button purple-button">Ready to Take Quiz</button>
+            </div>
+
+            <!-- Manual Insert Modal -->
+            <div class="manual-insert">
+                <button id="manual-insert-button" class="manual-button">Manually Insert Question and Answer into Deck</button>
+            </div>
+
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span id="close-modal" class="close-button">&times;</span>
+                    <h2>Insert Question and Answer</h2>
+                    <form id="manual-insert-form">
+                        <label for="question-input">Question:</label>
+                        <input type="text" id="question-input" placeholder="Insert question" required>
+                        <label for="answer-input">Answer:</label>
+                        <input type="text" id="answer-input" placeholder="Insert answer" required>
+                        <button type="submit" id="insert-button" class="blue-button">Insert into Deck</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Edit Flashcard Modal -->
+            <div id="edit-modal" class="modal">
+                <div class="modal-content">
+                    <span id="close-edit-modal" class="close-button">&times;</span>
+                    <h2>Edit Flashcard</h2>
+                    <form id="edit-card-form">
+                        <label for="edit-question-input">Edit Question:</label>
+                        <input type="text" id="edit-question-input" placeholder="Edit question" required>
+                        <label for="edit-answer-input">Edit Answer:</label>
+                        <input type="text" id="edit-answer-input" placeholder="Edit answer" required>
+                        <button type="submit" class="blue-button">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

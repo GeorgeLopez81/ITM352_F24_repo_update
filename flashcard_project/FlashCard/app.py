@@ -97,6 +97,60 @@ def insert_flashcard():
     except Exception as e:
         return jsonify({"message": f"An error occurred: {str(e)}"}), 500
 
+# Route: Retrieve all flashcards from JSON file
+@app.route("/get-flashcards", methods=["GET"])
+def get_flashcards():
+    try:
+        flashcards_file = "flashcards.json"
+
+        # Load flashcards from the JSON file
+        with open(flashcards_file, "r") as file:
+            flashcards = json.load(file)
+
+        return jsonify(flashcards), 200
+    except (FileNotFoundError, json.JSONDecodeError):
+        return jsonify([]), 200  # Return an empty list if the file doesn't exist or is invalid
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return jsonify({"message": f"An error occurred: {str(e)}"}), 500
+
+# Route: Edit a specific flashcard
+@app.route("/edit-flashcard", methods=["PUT"])
+def edit_flashcard():
+    try:
+        data = request.json
+        index = data.get("index")
+        updated_question = data.get("question")
+        updated_answer = data.get("answer")
+
+        if index is None or not isinstance(index, int):
+            return jsonify({"message": "Valid flashcard index is required!"}), 400
+        if not updated_question or not updated_answer:
+            return jsonify({"message": "Both question and answer are required!"}), 400
+
+        flashcards_file = "flashcards.json"
+
+        # Load existing flashcards
+        with open(flashcards_file, "r") as file:
+            flashcards = json.load(file)
+
+        # Ensure index is within range
+        if index < 0 or index >= len(flashcards):
+            return jsonify({"message": "Flashcard index out of range!"}), 400
+
+        # Update the flashcard
+        flashcards[index]["question"] = updated_question
+        flashcards[index]["answer"] = updated_answer
+
+        # Save the updated flashcards back to the file
+        with open(flashcards_file, "w") as file:
+            json.dump(flashcards, file, indent=4)
+
+        return jsonify({"message": "Flashcard updated successfully!"}), 200
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return jsonify({"message": f"An error occurred: {str(e)}"}), 500
+
 # Run the application
 if __name__ == "__main__":
     init_db()

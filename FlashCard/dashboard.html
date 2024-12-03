@@ -47,9 +47,26 @@
                 <button class="action-button purple-button">Ready to Take Quiz</button>
             </div>
 
-            <div class="manual-insert">
-                <button class="manual-button">Manually Insert Question and Answer into Deck</button>
-            </div>
+            <!-- Existing content in dashboard.html -->
+<div class="manual-insert">
+    <button id="manual-insert-button" class="manual-button">Manually Insert Question and Answer into Deck</button>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span id="close-modal" class="close-button">&times;</span>
+        <h2>Insert Question and Answer</h2>
+        <form id="manual-insert-form">
+            <label for="question-input">Question:</label>
+            <input type="text" id="question-input" placeholder="Insert question" required>
+            <label for="answer-input">Answer:</label>
+            <input type="text" id="answer-input" placeholder="Insert answer" required>
+            <button type="submit" id="insert-button" class="blue-button">Insert into Deck</button>
+        </form>
+    </div>
+</div>
+
         </div>
     </div>
 

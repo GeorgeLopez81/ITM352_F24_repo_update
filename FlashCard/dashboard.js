@@ -1,23 +1,22 @@
-// Placeholder for Flashcard Interaction
+const flashcards = []; // Flashcard deck
 let currentCardIndex = 0;
-const flashcards = [
-    { question: "Did my dog eat my homework?", options: ["Yes", "No", "Your cat ate it", "Your mom ate it"] },
-    { question: "What is 2 + 2?", options: ["3", "4", "5", "6"] },
-];
 
 const flashcardQuestion = document.getElementById("flashcard-question");
+const flashcardList = document.querySelector(".flashcard ul");
 
-// Update flashcard display
+// Display flashcard
 function displayFlashcard(index) {
-    const card = flashcards[index];
-    flashcardQuestion.innerHTML = card.question;
-    const options = card.options
-        .map((opt, i) => `<li>${String.fromCharCode(65 + i)}) ${opt}</li>`)
-        .join("");
-    document.querySelector(".flashcard ul").innerHTML = options;
+    if (flashcards.length > 0) {
+        const card = flashcards[index];
+        flashcardQuestion.innerHTML = card.question;
+        flashcardList.innerHTML = `<li>${card.answer}</li>`;
+    } else {
+        flashcardQuestion.innerHTML = "No flashcards available!";
+        flashcardList.innerHTML = "";
+    }
 }
 
-// Event listeners for buttons
+// Handle Previous and Next buttons
 document.getElementById("previous-button").addEventListener("click", () => {
     if (currentCardIndex > 0) {
         currentCardIndex--;
@@ -32,9 +31,43 @@ document.getElementById("next-button").addEventListener("click", () => {
     }
 });
 
-document.getElementById("generate-button").addEventListener("click", () => {
-    alert("Generate flashcards functionality will be implemented!");
+// Modal functionality
+const modal = document.getElementById("modal");
+const manualInsertButton = document.getElementById("manual-insert-button");
+const closeModal = document.getElementById("close-modal");
+
+manualInsertButton.addEventListener("click", () => {
+    modal.style.display = "flex";
 });
 
-// Initial flashcard display
+closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+// Handle manual insertion
+document.getElementById("manual-insert-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const question = document.getElementById("question-input").value;
+    const answer = document.getElementById("answer-input").value;
+
+    fetch("http://127.0.0.1:5000/insert-flashcard", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question, answer }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.message === "Flashcard added successfully!") {
+                flashcards.push({ question, answer });
+                alert("Flashcard added!");
+                modal.style.display = "none";
+                displayFlashcard(currentCardIndex);
+            }
+        })
+        .catch((error) => {
+            console.error("Error adding flashcard:", error);
+        });
+});
+
+// Initial display
 displayFlashcard(currentCardIndex);
