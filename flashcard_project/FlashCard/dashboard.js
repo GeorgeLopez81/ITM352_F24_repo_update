@@ -100,5 +100,9 @@ document.getElementById("manual-insert-form").addEventListener("submit", (e) => 
         });
 });
 
+document.getElementById("quiz-button").addEventListener("click", () => {
+    window.location.href = "quiz.html"; // Redirect to quiz page
+});
+
 // Fetch and display flashcards on page load
 fetchFlashcards();
