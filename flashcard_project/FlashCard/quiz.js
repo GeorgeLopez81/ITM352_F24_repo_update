@@ -1,21 +1,33 @@
 // Fetch flashcards from the server
 let flashcards = []; // Store flashcards globally for access
+const quizContainer = document.getElementById("quiz-container");
+
+// Get the username from localStorage and set the hidden field
+const username = localStorage.getItem("currentUsername") || "Guest";
+document.getElementById("username").value = username;
+
+// Fetch the flashcards and display the quiz
 fetch("http://127.0.0.1:5000/get-flashcards")
-    .then((response) => response.json())
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Failed to fetch flashcards");
+        }
+        return response.json();
+    })
     .then((data) => {
         flashcards = data;
         displayQuiz(flashcards);
     })
     .catch((error) => {
         console.error("Error fetching flashcards:", error);
+        quizContainer.innerHTML = "<p>Unable to load quiz questions. Please try again later.</p>";
     });
 
-// Generate multiple-choice answers
+// Function to generate multiple-choice answers
 function generateChoices(correctAnswer, flashcards) {
     const choices = new Set();
     choices.add(correctAnswer); // Ensure the correct answer is included
 
-    // Generate plausible incorrect answers from other flashcards
     while (choices.size < 4) {
         const randomAnswer = flashcards[Math.floor(Math.random() * flashcards.length)].answer;
         choices.add(randomAnswer);
@@ -24,9 +36,9 @@ function generateChoices(correctAnswer, flashcards) {
     return Array.from(choices).sort(() => Math.random() - 0.5); // Shuffle the choices
 }
 
-// Display the quiz
+// Function to display the quiz
 function displayQuiz(flashcards) {
-    const quizContainer = document.getElementById("quiz-container");
+    quizContainer.innerHTML = ""; // Clear any existing content
 
     flashcards.forEach((card, index) => {
         const questionDiv = document.createElement("div");
@@ -67,10 +79,21 @@ document.getElementById("submit-button").addEventListener("click", () => {
         }
     });
 
-    // Calculate the percentage
     const totalQuestions = flashcards.length;
     const percentage = Math.round((correctCount / totalQuestions) * 100);
+    const username = document.getElementById("username").value;
 
-    // Display results
-    alert(`You got ${correctCount} out of ${totalQuestions} correct (${percentage}%).`);
+    // Save results with username
+    fetch("http://127.0.0.1:5000/save-quiz-results", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, percentage, date: new Date().toISOString() }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        alert(`You scored ${percentage}%!`);
+    })
+    .catch((error) => {
+        console.error("Error saving quiz results:", error);
+    });
 });

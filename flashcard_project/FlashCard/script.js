@@ -38,6 +38,7 @@ document.getElementById("login-form").addEventListener("submit", (e) => {
         .then((data) => {
             if (data.message === "Login successful!") {
                 alert("Login successful! Redirecting...");
+                localStorage.setItem("currentUsername", username); // Save the username
                 window.location.href = "dashboard.html"; // Redirect to the dashboard
             } else {
                 alert(data.message);
@@ -48,3 +49,4 @@ document.getElementById("login-form").addEventListener("submit", (e) => {
             alert("An error occurred. Please try again.");
         });
 });
+

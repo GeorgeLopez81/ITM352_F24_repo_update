@@ -1,7 +1,14 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import sqlite3
+import pandas as pd
+import matplotlib.pyplot as plt
+import io
+import os
 from flask_cors import CORS
 import json
+import matplotlib
+matplotlib.use('Agg')  # Use a non-interactive backend
+
 
 # Initialize Flask app and enable CORS
 app = Flask(__name__)
@@ -150,6 +157,77 @@ def edit_flashcard():
     except Exception as e:
         print(f"Error: {str(e)}")
         return jsonify({"message": f"An error occurred: {str(e)}"}), 500
+    # Route to save quiz results
+@app.route("/save-quiz-results", methods=["POST"])
+def save_quiz_results():
+    try:
+        data = request.json
+        username = data.get("username")
+        percentage = data.get("percentage")
+        date = data.get("date")
+
+        # Save results to a CSV file
+        results_file = "quiz_results.csv"
+        new_entry = pd.DataFrame([[username, percentage, date]], columns=["Username", "Percentage", "Date"])
+
+        # Append to the CSV file or create a new one if it doesn't exist
+        if os.path.exists(results_file):
+            new_entry.to_csv(results_file, mode="a", header=False, index=False)
+        else:
+            new_entry.to_csv(results_file, mode="w", header=True, index=False)
+
+        return jsonify({"message": "Results saved successfully!"}), 201
+
+    except Exception as e:
+        return jsonify({"message": f"An error occurred: {str(e)}"}), 500
+    
+@app.route("/generate-scatter-plot", methods=["GET"])
+def generate_scatter_plot():
+    try:
+        username = request.args.get("username")
+        results_file = "quiz_results.csv"
+
+        print(f"Received username: {username}")
+        print(f"Checking if results file exists: {os.path.exists(results_file)}")
+
+        if not os.path.exists(results_file):
+            print("Results file not found.")
+            return jsonify({"message": "No results found!"}), 404
+
+        df = pd.read_csv(results_file)
+        print(f"DataFrame loaded successfully. Data:\n{df}")
+
+        user_results = df[df["Username"] == username]
+        print(f"Filtered results for user '{username}':\n{user_results}")
+
+        if user_results.empty:
+            print("No results found for this user.")
+            return jsonify({"message": "No results found for this user!"}), 404
+
+        # Generate the scatter plot
+        plt.figure(figsize=(10, 5))
+        plt.scatter(user_results["Date"], user_results["Percentage"], color='blue', s=50)
+
+        plt.xlabel("Date")
+        plt.ylabel("Score (%)")
+        plt.title(f"Quiz Scores for {username}")
+        plt.xticks(rotation=45)
+        plt.grid(True)
+
+        img = io.BytesIO()
+        plt.tight_layout()
+        plt.savefig(img, format="png")
+        img.seek(0)
+
+        return send_file(img, mimetype="image/png")
+
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        return jsonify({"message": f"An error occurred: {str(e)}"}), 500
+
+
+
+
 
 # Run the application
 if __name__ == "__main__":

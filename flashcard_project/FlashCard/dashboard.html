@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Your In!</h1>
+        <h1>Your Flashcard Dashboard</h1>
 
         <div class="flashcard-container">
             <div class="top-section">
@@ -17,7 +17,34 @@
                 <label for="file-upload">Upload File:</label>
                 <input type="file" id="file-upload">
                 <button id="generate-button" class="green-button">Generate Flashcards</button>
+
+                <div class="manual-insert">
+                    <button id="manual-insert-button" class="manual-button">Manually Insert Flashcard</button>
+                </div>
+
+
+
+                
+                <!-- Manual Insert Modal -->
+                <div id="manual-insert-modal" class="modal">
+                    <div class="modal-content">
+                        <span id="close-manual-modal" class="close-button">&times;</span>
+                        <h2>Insert Flashcard</h2>
+                        <form id="manual-insert-form">
+                            <label for="manual-question">Question:</label>
+                            <input type="text" id="manual-question" placeholder="Enter question" required>
+                
+                            <label for="manual-answer">Answer:</label>
+                            <input type="text" id="manual-answer" placeholder="Enter answer" required>
+                
+                            <button type="submit" class="blue-button">Insert</button>
+                        </form>
+                    </div>
+                </div>
+                
             </div>
+
+
 
             <div class="card-section">
                 <div class="modes">
@@ -25,59 +52,55 @@
                     <button class="mode-button">Test Mode (Timed)</button>
                 </div>
 
+                <!-- Flashcard with front and back for flip animation -->
                 <div class="flashcard">
-                    <!-- Display only the question by default -->
-                    <p id="flashcard-content">Question appears here</p>
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p id="flashcard-content">Question appears here</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <p id="flashcard-answer">Answer appears here</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card-controls">
                     <button id="previous-button">Previous</button>
-                    <button id="flip-button">Flip</button> <!-- New Flip button -->
+                    <button id="flip-button">Flip</button>
                     <button id="next-button">Next</button>
                 </div>
             </div>
 
+            <div class="progress-section">
+                <p id="progress-report">Cards Reviewed: 0</p>
+            </div>
+
             <div class="actions">
                 <button class="action-button blue-button">Shuffle the Deck</button>
-                <button class="action-button orange-button">Progress Report</button>
+                <button class="action-button orange-button" onclick="resetProgress()">Reset Cards</button>
                 <button class="action-button purple-button" id="quiz-button">Ready to Take Quiz</button>
-
+                <button class="action-button green-button" id="quiz-history-button">Quiz History</button>
+            
             </div>
-
-            <!-- Manual Insert Modal -->
-            <div class="manual-insert">
-                <button id="manual-insert-button" class="manual-button">Manually Insert Question and Answer into Deck</button>
+            <div id="scatter-plot-container" style="margin-top: 20px; position: relative; display: none;">
+                <button id="close-plot-button" style="
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    border: none;
+                    background-color: #ff4d4d;
+                    color: white;
+                    font-size: 20px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                ">×</button>
+                <img id="scatter-plot" src="" alt="Scatter Plot of Past Scores" style="max-width: 100%; height: auto; display: block;">
             </div>
-
-            <div id="modal" class="modal">
-                <div class="modal-content">
-                    <span id="close-modal" class="close-button">&times;</span>
-                    <h2>Insert Question and Answer</h2>
-                    <form id="manual-insert-form">
-                        <label for="question-input">Question:</label>
-                        <input type="text" id="question-input" placeholder="Insert question" required>
-                        <label for="answer-input">Answer:</label>
-                        <input type="text" id="answer-input" placeholder="Insert answer" required>
-                        <button type="submit" id="insert-button" class="blue-button">Insert into Deck</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Edit Flashcard Modal -->
-            <div id="edit-modal" class="modal">
-                <div class="modal-content">
-                    <span id="close-edit-modal" class="close-button">&times;</span>
-                    <h2>Edit Flashcard</h2>
-                    <form id="edit-card-form">
-                        <label for="edit-question-input">Edit Question:</label>
-                        <input type="text" id="edit-question-input" placeholder="Edit question" required>
-                        <label for="edit-answer-input">Edit Answer:</label>
-                        <input type="text" id="edit-answer-input" placeholder="Edit answer" required>
-                        <button type="submit" class="blue-button">Save Changes</button>
-                    </form>
-                </div>
-            </div>
-
         </div>
     </div>
 
