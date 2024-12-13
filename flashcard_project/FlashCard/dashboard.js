@@ -39,6 +39,25 @@ function displayFlashcard(index) {
     }
 }
 
+// Function to shuffle flashcards
+function shuffleFlashcards() {
+    for (let i = flashcards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]]; // Swap elements
+    }
+    currentCardIndex = 0; // Reset to the first card after shuffling
+    displayFlashcard(currentCardIndex); // Display the first shuffled card
+
+    // Play shuffle sound
+    const shuffleSound = document.getElementById("shuffle-sound");
+    shuffleSound.currentTime = 0; // Reset sound to start
+    shuffleSound.play().catch((error) => {
+        console.error("Error playing shuffle sound:", error);
+    });
+
+    alert("The flashcards have been shuffled!");
+}
+
 // Handle "Previous" and "Next" buttons
 document.getElementById("previous-button").addEventListener("click", () => {
     if (currentCardIndex > 0) {
@@ -60,6 +79,9 @@ document.getElementById("flip-button").addEventListener("click", () => {
     flashcard.classList.toggle("flipped");
 });
 
+// Attach the shuffle function to the "Shuffle the Deck" button
+document.getElementById("shuffle-button").addEventListener("click", shuffleFlashcards);
+
 // Modal elements
 const manualInsertModal = document.getElementById("manual-insert-modal");
 const manualInsertButton = document.getElementById("manual-insert-button");
@@ -78,7 +100,6 @@ closeManualModal.addEventListener("click", () => {
 document.getElementById("quiz-button").addEventListener("click", () => {
     window.location.href = "quiz.html";
 });
-
 
 // Handle manual insertion form submission
 document.getElementById("manual-insert-form").addEventListener("submit", (e) => {
@@ -122,6 +143,7 @@ function resetProgress() {
 
 // Fetch and display flashcards on page load
 fetchFlashcards();
+
 document.getElementById("quiz-history-button").addEventListener("click", () => {
     const username = localStorage.getItem("currentUsername") || "Guest";
 
@@ -146,11 +168,8 @@ document.getElementById("quiz-history-button").addEventListener("click", () => {
         });
 });
 
-
-
 // Handle closing the scatter plot
 document.getElementById("close-plot-button").addEventListener("click", () => {
     const scatterPlotContainer = document.getElementById("scatter-plot-container");
     scatterPlotContainer.style.display = "none"; // Hide the scatter plot container
 });
-

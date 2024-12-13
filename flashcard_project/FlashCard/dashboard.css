@@ -22,7 +22,7 @@ body {
 .flashcard {
     perspective: 1000px;
     width: 300px;
-    height: 200px;
+    height: 400px;
     margin: 20px auto;
 }
 
@@ -113,3 +113,81 @@ body {
     font-size: 16px;
     margin-top: 40px;
 }
+.flashcard-container {
+    background-color: #fff; /* White background for flashcard */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Ensure positioning context for child elements */
+    overflow: hidden; /* Ensure lines don't overflow */
+    pointer-events: none; /* Allow clicks to pass through to buttons */
+}
+
+.flashcard-content {
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    pointer-events: auto; /* Enable interactivity for this content */
+}
+
+.card-controls {
+    position: relative;
+    z-index: 2; /* Ensure buttons appear above the background */
+}
+
+.card-controls button {
+    margin: 10px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    pointer-events: auto; /* Ensure buttons can be clicked */
+}
+/* Adding parallel lines to resemble a flashcard */
+.flashcard-container::before {
+    content: '';
+    position: absolute;
+    top: 20px; /* Larger margin at the top */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 20px,
+        #c0c0c0 21px
+    );
+    z-index: 0; /* Place the lines behind the flashcard content */
+}
+
+/* Ensure flashcard content is above the background lines */
+.flashcard {
+    position: relative;
+    z-index: 1;
+}
+
+#manual-insert-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adds space between the form elements */
+    text-align: left;
+}
+
+#manual-insert-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#manual-insert-form input {
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 100%; /* Makes the input fields take full width */
+    box-sizing: border-box; /* Ensures padding doesn't increase the width */
+}
+
+#manual-insert-form button {
+    align-self: center; /* Centers the "Insert" button */
+    padding: 10px 20px;
+}
+
