@@ -6,7 +6,7 @@ let showingQuestion = true; // Track whether the question or answer is displayed
 let progress = JSON.parse(localStorage.getItem("progress")) || { reviewed: 0 };
 
 // Update the progress display
-document.getElementById("progress-report").innerText = `Cards Reviewed: ${progress.reviewed}`;
+document.getElementById("progress-report").innerText = `Cards Reviewed: ${progress.reviewed} of ${flashcards.length}`;
 
 const flashcardContent = document.getElementById("flashcard-content");
 const flashcardAnswer = document.getElementById("flashcard-answer");
@@ -34,6 +34,7 @@ function displayFlashcard(index) {
         flashcardContent.innerHTML = card.question; // Display question
         flashcardAnswer.innerHTML = card.answer;    // Display answer
         flashcard.classList.remove("flipped");      // Ensure the card shows the question by default
+        updateProgress();                           // Update progress display
     } else {
         flashcardContent.innerHTML = "No flashcards available!";
     }
@@ -70,7 +71,6 @@ document.getElementById("next-button").addEventListener("click", () => {
     if (currentCardIndex < flashcards.length - 1) {
         currentCardIndex++;
         displayFlashcard(currentCardIndex);
-        updateProgress();
     }
 });
 
@@ -129,16 +129,17 @@ document.getElementById("manual-insert-form").addEventListener("submit", (e) => 
 
 // Update progress function
 function updateProgress() {
-    progress.reviewed += 1;
+    progress.reviewed = currentCardIndex + 1; // Index is zero-based, so add 1
     localStorage.setItem("progress", JSON.stringify(progress));
-    document.getElementById("progress-report").innerText = `Cards Reviewed: ${progress.reviewed}`;
+    document.getElementById("progress-report").innerText = `Cards Reviewed: ${progress.reviewed} of ${flashcards.length}`;
 }
 
 // Reset progress function
 function resetProgress() {
     progress.reviewed = 0;
+    currentCardIndex = 0; // Reset to the first card
     localStorage.setItem("progress", JSON.stringify(progress));
-    document.getElementById("progress-report").innerText = `Cards Reviewed: ${progress.reviewed}`;
+    displayFlashcard(currentCardIndex);
 }
 
 // Fetch and display flashcards on page load
