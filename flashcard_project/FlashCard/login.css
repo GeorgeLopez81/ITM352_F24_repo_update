@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    padding: 0;
+    padding: 20px 0;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -19,6 +19,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
     width: 300px;
+    transform: translateY(-300px);
 }
 
 .login-container h2 {
