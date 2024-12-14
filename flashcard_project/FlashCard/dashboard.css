@@ -190,4 +190,48 @@ body {
     align-self: center; /* Centers the "Insert" button */
     padding: 10px 20px;
 }
+/* Styles for the Edit Card button */
+#edit-card-button {
+    margin: 10px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Ensure the modal covers the screen */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal content styling */
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Close button styling */
+.close-button {
+    font-size: 24px;
+    color: #555;
+    float: right;
+    cursor: pointer;
+}
 

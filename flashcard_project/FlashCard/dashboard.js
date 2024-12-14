@@ -11,6 +11,14 @@ document.getElementById("progress-report").innerText = `Cards Reviewed: ${progre
 const flashcardContent = document.getElementById("flashcard-content");
 const flashcardAnswer = document.getElementById("flashcard-answer");
 const flashcard = document.querySelector(".flashcard");
+// Edit Card Modal Elements
+const editCardModal = document.getElementById("edit-card-modal");
+const editCardButton = document.getElementById("edit-card-button");
+const closeEditModal = document.getElementById("close-edit-modal");
+const editCardForm = document.getElementById("edit-card-form");
+const editQuestionInput = document.getElementById("edit-question");
+const editAnswerInput = document.getElementById("edit-answer");
+
 
 // Fetch flashcards from the server (flashcards.json) when the page loads
 function fetchFlashcards() {
@@ -56,7 +64,7 @@ function shuffleFlashcards() {
         console.error("Error playing shuffle sound:", error);
     });
 
-    alert("The flashcards have been shuffled!");
+    alert("The flashcards will be shuffled!");
 }
 
 // Handle "Previous" and "Next" buttons
@@ -78,6 +86,53 @@ document.getElementById("next-button").addEventListener("click", () => {
 document.getElementById("flip-button").addEventListener("click", () => {
     flashcard.classList.toggle("flipped");
 });
+
+// Show the edit card modal
+editCardButton.addEventListener("click", () => {
+    if (flashcards.length > 0) {
+        const currentCard = flashcards[currentCardIndex];
+        editQuestionInput.value = currentCard.question;
+        editAnswerInput.value = currentCard.answer;
+        editCardModal.style.display = "flex";
+    }
+});
+// Close the edit card modal
+closeEditModal.addEventListener("click", () => {
+    editCardModal.style.display = "none";
+});
+
+// Handle form submission for editing the flashcard
+editCardForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const updatedQuestion = editQuestionInput.value.trim();
+    const updatedAnswer = editAnswerInput.value.trim();
+
+    if (updatedQuestion && updatedAnswer) {
+        flashcards[currentCardIndex].question = updatedQuestion;
+        flashcards[currentCardIndex].answer = updatedAnswer;
+        displayFlashcard(currentCardIndex);
+        editCardModal.style.display = "none";
+
+        fetch("http://127.0.0.1:5000/edit-flashcard", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                index: currentCardIndex,
+                question: updatedQuestion,
+                answer: updatedAnswer,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                alert(data.message);
+            })
+            .catch((error) => {
+                console.error("Error updating flashcard:", error);
+            });
+    }
+});
+
 
 // Attach the shuffle function to the "Shuffle the Deck" button
 document.getElementById("shuffle-button").addEventListener("click", shuffleFlashcards);

@@ -42,8 +42,25 @@
         <div class="card-controls">
             <button id="previous-button">Previous</button>
             <button id="flip-button">Flip</button>
+            <button id="edit-card-button" class="blue-button">Edit Card</button>
             <button id="next-button">Next</button>
         </div>
+        <!-- Edit Card Modal -->
+<div id="edit-card-modal" class="modal">
+    <div class="modal-content">
+        <span id="close-edit-modal" class="close-button">&times;</span>
+        <h2>Edit Flashcard</h2>
+        <form id="edit-card-form">
+            <label for="edit-question">Question:</label>
+            <input type="text" id="edit-question" placeholder="Edit question" required>
+
+            <label for="edit-answer">Answer:</label>
+            <input type="text" id="edit-answer" placeholder="Edit answer" required>
+
+            <button type="submit" class="blue-button">Save Changes</button>
+        </form>
+    </div>
+</div>
 
         <!-- Progress Section -->
         <div class="progress-section">
