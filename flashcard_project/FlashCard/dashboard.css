@@ -234,4 +234,18 @@ body {
     float: right;
     cursor: pointer;
 }
+.red-button {
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.red-button:hover {
+    background-color: #e03e3e;
+}
 

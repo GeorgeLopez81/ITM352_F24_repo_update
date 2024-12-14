@@ -137,6 +137,11 @@ editCardForm.addEventListener("submit", (e) => {
 // Attach the shuffle function to the "Shuffle the Deck" button
 document.getElementById("shuffle-button").addEventListener("click", shuffleFlashcards);
 
+// Handle "Log Out" button click
+document.getElementById("logout-button").addEventListener("click", () => {
+    window.location.href = "login.html"; // Replace with the correct login page path
+});
+
 // Modal elements
 const manualInsertModal = document.getElementById("manual-insert-modal");
 const manualInsertButton = document.getElementById("manual-insert-button");
